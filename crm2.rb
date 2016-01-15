@@ -1,9 +1,16 @@
-require_relative 'contact.rb'
+require_relative 'contact2.rb'
 
 class CRM
-  def initialize(name)
-    @name = name
+  # def initialize(name)
+  #   @name = name
+  # end
 
+  def main_menu
+    while true
+    print_main_menu
+    choice = gets.chomp.to_i
+    choose_option(choice)
+    end
   end
 
   def print_main_menu
@@ -15,14 +22,6 @@ class CRM
     puts "6. Delete a contact"
     puts "7. Exit"
 
-  end
-
-  def main_menu
-    while true
-    print_main_menu
-    choice = gets.chomp.to_i
-    choose_option
-    end
   end
 
   def choose_option(choice)
@@ -42,6 +41,14 @@ class CRM
 
   end
 
+
+  # def self.run(name)
+  #   crm = CRM.new(name)
+  #   crm.main_menu
+  # end
+
+
+  #add a contact
   def add_contact
     puts "Please provide the contact's info:"
     puts "First Name:"
@@ -50,10 +57,20 @@ class CRM
     puts "Last Name:"
     last_name = gets.chomp.to_s
 
+    puts "Email:"
+    email = gets.chomp.to_s
+
+    puts "Notes:"
+    note = gets.chomp.to_s
+
     new_contact = Contact.create(first_name, last_name, email: email, note: note)
+
+    puts "New contact created."
+    new_contact
 
   end
 
+  #modify a contact
   def display_all
     Contact.all.each do |contact|
       puts "#{contact.id} #{contact.full_name} #{contact.email} #{contact.note}"
@@ -63,3 +80,6 @@ class CRM
 
 
 end
+
+crm = CRM.new
+crm.main_menu
