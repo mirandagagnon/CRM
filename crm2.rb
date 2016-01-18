@@ -66,16 +66,32 @@ class CRM
     new_contact = Contact.create(first_name, last_name, email: email, note: note)
 
     puts "New contact created."
-    new_contact
 
   end
 
-  #modify a contact
+  #update a contact
+  def modify_contact
+
+  end
+
+  #display all contacts
   def display_all
     Contact.all.each do |contact|
       puts "#{contact.id} #{contact.full_name} #{contact.email} #{contact.note}"
     end
+  end
 
+  #display one contact
+  def display_contact
+    puts "Please enter the id of the contact you would like to view:"
+    id = gets.chomp.to_s
+    Contact.find(id)
+
+  #delete a contact
+  def delete_contact
+    puts "Enter the id of the contact you would like to update:"
+    id = gets.chomp.to_s
+    Contact.delete(id)
   end
 
 
