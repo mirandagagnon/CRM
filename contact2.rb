@@ -2,7 +2,8 @@ class Contact
   attr_accessor :first_name, :last_name, :email, :note
   attr_reader :id
 
-  def initialize(first_name, last_name, options = {})
+  def initialize(id, first_name, last_name, options = {})
+    @id = id
     @first_name = first_name
     @last_name = last_name
     @email = options[:email]
@@ -33,9 +34,14 @@ class Contact
 
   end
 
+  #remove a contact from the list
+  def self.delete(id)
+    @@contacts.delete_if {|contact| contact.id == id}
+
+  end
+
   #iterate through all contacts and find the one with the corresponding id
   def self.find(id)
-
     @@contacts.find {|contact| contact.id = id}
   end
 
@@ -44,4 +50,40 @@ class Contact
     @@contacts
   end
 
+  #delete all contacts
+  def self.delete_all
+    @@contacts == []
+    @@id = 1
+  end
+
+  #search by attribute
+  def self.search (name, value)
+    @@contacts.select {
+      |contact|
+      if name == "first_name"
+        value == contact.first_name
+      elsif name == "last_name"
+        value == contact.last_name
+      elsif name == "email"
+        value == contact.email
+      elsif name == "note"
+        value ==contact.note
+      else
+        value == nil
+      end
+    }
+  end
+    #update
+    def update(name, value)
+      case name
+      when "first_name"
+        @first_name = value
+      when "last_name"
+        @last_name = value
+      when "email"
+        @email = value
+      when "note"
+        @note = value
+      end
+    end
 end
